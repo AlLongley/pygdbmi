@@ -170,6 +170,8 @@ class IoManager:
                         "Developer error. Got unexpected file number %d" % fileno
                     )
                 responses_list = self._get_responses_list(raw_output, stream)
+                for resp in responses_list:
+                    yield resp
                 responses += responses_list
 
             if timeout_sec == 0:  # just exit immediately
@@ -185,7 +187,7 @@ class IoManager:
             elif time.time() > timeout_time_sec:
                 break
 
-        return responses
+        #return responses
 
     def _get_responses_list(
         self, raw_output: bytes, stream: str
